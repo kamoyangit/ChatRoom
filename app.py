@@ -3,11 +3,15 @@ import sqlite3
 import datetime
 import pandas as pd
 import time
+import os
 
 # --- データベース設定 ---
 DB_FILE = "chat.db"
 
 MAX_ROOM = 10
+
+ADMINID = os.environ.get("ADMIN_KEY")
+PASSWORD = os.environ.get("PASS_KEY")
 
 def init_db():
     """データベースを初期化し、テーブルが存在しない場合は作成する"""
@@ -96,7 +100,7 @@ with st.sidebar:
         admin_id = st.text_input("管理者ID", key="admin_id")
         admin_pass = st.text_input("パスワード", type="password", key="admin_pass")
         if st.button("管理者ログイン"):
-            if admin_id == "admin" and admin_pass == "pass123":
+            if admin_id == ADMINID and admin_pass == PASSWORD:
                 st.session_state.admin_logged_in = True
                 st.success("管理者としてログインしました。")
                 time.sleep(1)
