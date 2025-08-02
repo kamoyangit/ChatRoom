@@ -178,11 +178,21 @@ else:
     # --- チャットルーム画面 ---
     st.title(f"チャットルーム (部屋 {st.session_state.room_id})")
 
-    if st.button("退室する"):
-        st.session_state.is_logged_in = False
-        st.session_state.nickname = ""
-        st.session_state.room_id = 0
-        st.rerun()
+    ### 変更点 ここから ###
+    # ボタンを横並びに配置
+    col1, col2 = st.columns([1, 1])
+
+    with col1:
+        if st.button("退室する"):
+            st.session_state.is_logged_in = False
+            st.session_state.nickname = ""
+            st.session_state.room_id = 0
+            st.rerun()
+
+    with col2:
+        # このボタンが押されると、スクリプトが再実行され画面が更新される
+        st.button("リロード")
+    ### 変更点 ここまで ###
 
     # チャット履歴の表示
     chat_container = st.container()
